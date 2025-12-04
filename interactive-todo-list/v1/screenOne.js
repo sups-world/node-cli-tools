@@ -1,10 +1,11 @@
-import { listItems } from "./fileRelated.js";
+import { addItem, listItems } from "./fileRelated.js";
 import { state } from "./screenRouter.js";
 
 export function screenOne() {
   if (state.scrollPosition === 0) {
     console.clear();
-    console.log("Add new task prompt");
+    console.log("Enter task here ");
+    addItem();
   } else if (state.scrollPosition === 1) {
     console.clear();
     console.log("Listing all incomplete tasks");
