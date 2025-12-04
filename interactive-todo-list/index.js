@@ -17,6 +17,8 @@ const homeMenuOptions = [
 const defaultArrowPosition = 0;
 const maxArrayPostion = homeMenuOptions.length - 1;
 
+const menuScreens = ["home", "second"];
+
 //Related to file
 const DB_FILE = "./todos.json";
 
@@ -61,7 +63,7 @@ function listItems(listType) {
 
 //Ends related to file
 
-async function keyPressListener() {
+async function keyPressListenerHome() {
   let arrayPostion = 0;
   console.log(headline);
   printHomeMenu(arrayPostion);
@@ -74,6 +76,8 @@ async function keyPressListener() {
       }
 
       if (key.name === "right") {
+        keyPressListenerSecond(arrayPostion);
+        return;
         if (arrayPostion === maxArrayPostion) {
           console.clear();
           console.log("Exiting...");
@@ -110,6 +114,21 @@ async function keyPressListener() {
   });
 }
 
+async function keyPressListenerSecond(selectedMenuIndex) {
+  console.clear();
+  console.log("Press left to go back", selectedMenuIndex);
+
+  return new Promise((resolve) => {
+    process.stdin.on("keypress", (str, key) => {
+      if (key.name === "left") {
+        homeMenu();
+        return;
+      }
+    });
+    resolve();
+  });
+}
+
 function printHomeMenu(arrowPosition) {
   console.clear();
   console.log(headline);
@@ -123,7 +142,7 @@ function printHomeMenu(arrowPosition) {
 }
 
 async function homeMenu() {
-  await keyPressListener();
+  await keyPressListenerHome();
 }
 
 function listIncompleteTasks() {
