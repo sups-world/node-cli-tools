@@ -19,8 +19,13 @@ async function keyPressListener() {
         console.log("Exiting...");
         process.exit();
       }
-      console.log("now ::", key.name);
-      if (key.name === "left" || key.name === "right") {
+      // console.log("now ::", key.name);
+      if (
+        key.name === "left" ||
+        key.name === "right" ||
+        key.name === "up" ||
+        key.name === "down"
+      ) {
         screenRouter(key);
       }
     });

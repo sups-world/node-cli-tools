@@ -1,3 +1,5 @@
+import { state } from "./screenRouter.js";
+
 const headline = "Interactive TODO CLI by sups";
 const homeMenuOptions = [
   `1. Add new task \n`,
@@ -6,12 +8,19 @@ const homeMenuOptions = [
   `4. Exit \n`,
 ];
 
-const defaultArrowPosition = 0;
-const maxArrayPostion = homeMenuOptions.length - 1;
+export const homeMenuLength = homeMenuOptions.length;
 
-function printHomeMenu(key) {
-  let arrowPosition = 0;
+function printHomeMenu() {
+  let arrowPosition = state.scrollPosition;
+  if (arrowPosition >= homeMenuLength) {
+    arrowPosition = 0;
+    state.scrollPosition = 0;
+  } else if (arrowPosition < 0) {
+    arrowPosition = homeMenuLength - 1;
+    state.scrollPosition = arrowPosition;
+  }
   console.clear();
+  console.log("current ", state);
   console.log(headline + "\n");
   homeMenuOptions.map((item, index) => {
     if (index === arrowPosition) {
