@@ -1,6 +1,12 @@
 import fs from "fs";
 import path from "path";
 
+const colors = {
+  red: (text) => `\x1b[31m${text}\x1b[0m`,
+  yellow: (text) => `\x1b[33m${text}\x1b[0m`,
+  green: (text) => `\x1b[32m${text}\x1b[0m`,
+};
+
 const filePath = process.argv[2];
 
 if (!filePath) {
@@ -40,8 +46,20 @@ function watchThisFile() {
         lines.forEach((line) => {
           if (!line) return;
 
+          // if (!filter || line.includes(filter)) {
+          //   console.log(line);
+          // }
+          let output = line;
+          if (line.includes("ERROR")) {
+            output = colors.red(line);
+          } else if (line.includes("WARN")) {
+            output = colors.yellow(line);
+          } else if (line.includes("INFO")) {
+            output = colors.green(line);
+          }
+
           if (!filter || line.includes(filter)) {
-            console.log(line);
+            console.log(output);
           }
         });
       });

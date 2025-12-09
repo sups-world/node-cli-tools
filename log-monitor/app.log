@@ -2,3 +2,6 @@
 [ERROR] DB failed
 [ERROR] failed here
 [INFO] normal log
+[INFO] server up
+[WARN] high memory
+[ERROR] db failed
