@@ -1,5 +1,36 @@
+import readline from "node:readline";
 import fs from "fs";
 import path from "path";
+
+// Enable keypress events
+readline.emitKeypressEvents(process.stdin);
+process.stdin.setRawMode(true);
+
+let isPaused = false;
+
+process.stdin.on("keypress", (str, key) => {
+  if (!key) return;
+
+  if (key.sequence === "\u0003" || key.name === "q") {
+    // Ctrl+C or q
+    console.log("\nExiting...");
+    process.exit();
+  }
+
+  if (key.name === "p") {
+    if (!isPaused) {
+      isPaused = true;
+      console.log("\n⏸ Paused. Press 'r' to resume");
+    }
+  }
+
+  if (key.name === "r") {
+    if (isPaused) {
+      isPaused = false;
+      console.log("\n▶ Resumed watching...");
+    }
+  }
+});
 
 const colors = {
   red: (text) => `\x1b[31m${text}\x1b[0m`,
@@ -21,6 +52,7 @@ const filter = filterArgIndex !== -1 ? process.argv[filterArgIndex + 1] : null;
 const absolutePath = path.resolve(filePath);
 
 console.log(`👀 Watching: ${absolutePath}`);
+console.log(`>>> Press 'p' to pause and 'r' to resume `);
 if (filter) {
   console.log(`🔍 Filter active: ${filter}`);
 }
@@ -28,6 +60,8 @@ if (filter) {
 let lastSize = 0;
 
 function watchThisFile() {
+  if (isPaused) return; //skip reading when paused
+
   try {
     const stats = fs.statSync(absolutePath);
     const newSize = stats.size;
