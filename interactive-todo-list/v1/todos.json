@@ -18,5 +18,25 @@
     "id": 4,
     "text": "Buy spinach",
     "done": true
+  },
+  {
+    "id": 5,
+    "text": "Pushups25",
+    "done": false
+  },
+  {
+    "id": 6,
+    "text": "squats 10",
+    "done": false
+  },
+  {
+    "id": 7,
+    "text": "Run 10kms",
+    "done": false
+  },
+  {
+    "id": 8,
+    "text": "skip rope 10 minutes",
+    "done": false
   }
 ]

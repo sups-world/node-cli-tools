@@ -4,6 +4,7 @@ import { homeMenuLength, screenZero } from "./screenZero.js";
 export const state = {
   currentScreen: 0,
   scrollPosition: 0,
+  isTyping: false,
 };
 
 export function screenRouter(key) {

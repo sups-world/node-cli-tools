@@ -14,6 +14,10 @@ state.currentScreen = 1;
 async function keyPressListener() {
   return new Promise((resolve) => {
     process.stdin.on("keypress", (str, key) => {
+      if (!key) return;
+
+      // Prevent enter from breaking flow
+      if (key.name === "return") return;
       if (key.sequence === "\u0003") {
         // \u0003 is the ASCII code for Ctrl+C
         console.log("Exiting...");
