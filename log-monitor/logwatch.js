@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import readline from "node:readline";
 import fs from "fs";
 import path from "path";
@@ -80,9 +82,6 @@ function watchThisFile() {
         lines.forEach((line) => {
           if (!line) return;
 
-          // if (!filter || line.includes(filter)) {
-          //   console.log(line);
-          // }
           let output = line;
           if (line.includes("ERROR")) {
             output = colors.red(line);
@@ -107,5 +106,3 @@ function watchThisFile() {
 
 //check every 500ms
 setInterval(watchThisFile, 500);
-
-// watchThisFile();
